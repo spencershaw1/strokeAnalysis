@@ -64,7 +64,6 @@ ggplot(strokeData, aes(stroke, ever_married, color = factor(stroke))) + geom_jit
 # Residence Type and Stroke
 ggplot(strokeData, aes(stroke, Residence_type, color = factor(stroke))) + geom_jitter()
 
-
 # Age vs BMI with no Stroke separation and no regression lines
 ggplot(strokeData, aes(x = age, y = bmi)) + geom_point(size = 0.65, color = "#2ed573") +
   ylim(0, 65)
