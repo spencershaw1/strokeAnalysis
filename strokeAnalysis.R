@@ -3,8 +3,8 @@
 # Spencer Shaw
 # December 16, 2021
 #
-# An R Script to create models and learning algorithms that will assist in
-# predicting whether a patient will have a stroke 
+# An R Script to create models, plots, and learning algorithms that will 
+# assist in predicting whether a given patient will have a stroke 
 
 
 rm(list = ls())
@@ -39,67 +39,90 @@ ncol(strokeData)
 # n = 4909
 nrow(strokeData)
 
-# Average Glucose vs. Smoking Status
-ggplot(strokeData, aes(smoking_status, avg_glucose_level)) + geom_boxplot(color = "#2ed573")
+# 1) Average Glucose vs. Smoking Status
+ggplot(strokeData, aes(smoking_status, avg_glucose_level)) + 
+  geom_boxplot(color = "#2ed573") + ggtitle("Average Glucose Level vs. Smoking Status") + 
+  ylab("Average Glucose Level") + xlab("Smoking Status")
 
-# Average Glucose vs. Smoking Status (split on stroke and no stroke)
+# 2) Average Glucose vs. Smoking Status (split on stroke and no stroke)
 ggplot(strokeData, aes(smoking_status, avg_glucose_level, color = factor(stroke))) +
-  geom_boxplot()
+  geom_boxplot() + ggtitle("Avereage Glucose Level vs. Smoking Status") + 
+  ylab("Average Glucose Level") + xlab("Smoking Status") + labs(color = "Stroke")
 
-# Average Glucose vs. Stroke
+# 3) Average Glucose vs. Stroke
 ggplot(strokeData, aes(stroke, avg_glucose_level, group = stroke, color = factor(stroke))) + 
-  geom_boxplot(size = 1)
+  geom_boxplot(size = 1) + ggtitle("Average Glucose Level vs. Stroke") + 
+  ylab("Average Glucose Level") + xlab("Stroke") + labs(color = "Stroke")
 
-# Average Glucose vs. Stroke (with jitter)
+# 4) Average Glucose vs. Stroke (with jitter)
 ggplot(strokeData, aes(stroke, avg_glucose_level, group = stroke, color = factor(stroke))) + 
-  geom_boxplot(size = 1) + geom_jitter()
+  geom_boxplot(size = 1) + geom_jitter() + ggtitle("Average Glucose Level vs. Stroke") + 
+  ylab("Average Glucose Level") + xlab("Stroke") + labs(color = "Stroke")
 
-# Heart Disease and Stroke
-ggplot(strokeData, aes(stroke, heart_disease, color = factor(stroke))) + geom_jitter()
+# 5) Heart Disease and Stroke
+ggplot(strokeData, aes(stroke, heart_disease, color = factor(stroke))) + geom_jitter() + 
+  ggtitle("Heart Disease and Stroke") + ylab("Heart Disease") + xlab("Stroke") + 
+  labs(color = "Stroke")
 
-# Smoking Status and Stroke
-ggplot(strokeData, aes(stroke, smoking_status, color = factor(stroke))) + geom_jitter()
+# 6) Smoking Status and Stroke
+ggplot(strokeData, aes(stroke, smoking_status, color = factor(stroke))) + geom_jitter() + 
+  ggtitle("Smoking Status and Stroke") + ylab("Smoking Status") + xlab("Stroke") + 
+  labs(color = "Stroke")
 
-# Hypertension and Stroke
-ggplot(strokeData, aes(stroke, hypertension, color = factor(stroke))) + geom_jitter()
+# 7) Hypertension and Stroke
+ggplot(strokeData, aes(stroke, hypertension, color = factor(stroke))) + geom_jitter() + 
+  ggtitle("Hypertension and Stroke") + ylab("Hypertension") + xlab("Stroke") + 
+  labs(color = "Stroke")
 
-# Ever Married and Stroke
-ggplot(strokeData, aes(stroke, ever_married, color = factor(stroke))) + geom_jitter()
+# 8) Ever Married and Stroke
+ggplot(strokeData, aes(stroke, ever_married, color = factor(stroke))) + geom_jitter() + 
+  ggtitle("Ever Married and Stroke") + ylab("Ever Married") + xlab("Stroke") + 
+  labs(color = "Stroke")
 
-# Residence Type and Stroke
-ggplot(strokeData, aes(stroke, Residence_type, color = factor(stroke))) + geom_jitter()
+# 9) Residence Type and Stroke
+ggplot(strokeData, aes(stroke, Residence_type, color = factor(stroke))) + geom_jitter() + 
+  ggtitle("Residence Type and Stroke") + ylab("Residence Type") + xlab("Stroke") + 
+  labs(color = "Stroke")
 
-# Age vs BMI with no Stroke separation and no regression lines
+# 10) Age vs BMI with no Stroke separation and no regression lines
 ggplot(strokeData, aes(x = age, y = bmi)) + geom_point(size = 0.65, color = "#2ed573") +
-  ylim(0, 65)
+  ylim(0, 65) + ggtitle("BMI vs. Age") + ylab("BMI") + xlab("Age")
 
-# Age vs BMI with no Stroke separation and linear regression
+# 11) Age vs BMI with no Stroke separation and linear regression
 ggplot(strokeData, aes(x = age, y = bmi)) + geom_point(size = 0.65, color = "#2ed573") +
-  ylim(0, 65) + geom_smooth(method = "lm", color = "#1e90ff")
+  ylim(0, 65) + geom_smooth(method = "lm", color = "#1e90ff") + ggtitle("BMI vs. Age") + 
+  ylab("BMI") + xlab("Age")
 
-# Age vs BMI with no Stroke separation and loess regression
+# 12) Age vs BMI with no Stroke separation and loess regression
 ggplot(strokeData, aes(x = age, y = bmi)) + geom_point(size = 0.65, color = "#2ed573") +
-  ylim(0, 65) + geom_smooth(method = "loess", color = "#1e90ff")
+  ylim(0, 65) + geom_smooth(method = "loess", color = "#1e90ff") + 
+  ggtitle("BMI vs. Age") + xlab("BMI") + ylab("Age")
 
-# Age vs BMI with Stroke separation and no regression lines
+# 13) Age vs BMI with Stroke separation and no regression lines
 ggplot(strokeData, aes(x = age, y = bmi, color = factor(stroke))) + geom_point(size = 0.65) +
-  ylim(0, 65)
+  ylim(0, 65) + ggtitle("BMI vs. Age") + ylab("BMI") + xlab("Age") + 
+  labs(color = "Stroke")
 
-# Age vs BMI with Stroke separation and linear regression
+# 14) Age vs BMI with Stroke separation and linear regression
 ggplot(strokeData, aes(x = age, y = bmi, color = factor(stroke))) + geom_point(size = 0.65) +
-  ylim(0, 65) + geom_smooth(method = "lm")
+  ylim(0, 65) + geom_smooth(method = "lm") + ggtitle("BMI vs. Age") + 
+  ylab("BMI") + xlab("Age") + labs(color = "Stroke")
 
-# Age vs BMI with Stroke separation and loess regression
+# 15) Age vs BMI with Stroke separation and loess regression
 ggplot(strokeData, aes(x = age, y = bmi, color = factor(stroke))) + geom_point(size = 0.65) +
-  ylim(0, 65) + geom_smooth(method = "loess")
+  ylim(0, 65) + geom_smooth(method = "loess") + ggtitle("BMI vs. Age") + 
+  ylab("BMI") + xlab("Age") + labs(color = "Stroke")
 
-# Stroke occurences
+# 16) Stroke occurrences
 ggplot(strokeData, aes(stroke, fill = factor(stroke))) + geom_bar(width = 0.75) + 
-  scale_x_discrete()
+  scale_x_discrete() + ggtitle("Stroke Occurences") + ylab("Counts") + 
+  xlab("Stroke Status") + labs(fil = "Stroke")
 
 
 
 # PREDICTION / ANALYSIS
+
+# Converting qualitative data to numeric data
 strokeData$ever_married <- as.factor(strokeData$ever_married)
 strokeData$MARRIED <- as.numeric(strokeData$ever_married)
 
@@ -127,10 +150,14 @@ glm.fit2 <- glm(stroke ~ avg_glucose_level * hypertension, data = train,
                family = binomial)
 summary(glm.fit2)
 
-ggPredict(glm.fit2, se = TRUE, digits = 3)
+
+ggPredict(glm.fit2, se = TRUE, digits = 3) + 
+  ggtitle("Probability of Stroke") + ylab("Probability") + xlab("Average Glucose Level")
 
 ggplot(strokeData, aes(x=avg_glucose_level, y=stroke, color = factor(hypertension))) + 
-  geom_point() + geom_smooth(method="glm", se=FALSE, method.args = list(family=binomial))
+  geom_point() + geom_smooth(method="glm", se=FALSE, method.args = list(family=binomial)) +
+  ggtitle("Probability of Stroke") + ylab("Probability") + xlab("Average Glucose Level") +
+  labs(color = "Hypertension")
 
 
 # Training Set Accuracy - Fit 1
